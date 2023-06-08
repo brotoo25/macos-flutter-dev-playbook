@@ -1,0 +1,12 @@
+---
+- name: Install fvm
+  shell: |
+    brew tap leoafarias/fvm
+    brew install fvm
+  become: "no"
+
+- name: Install latest stable Flutter version via fvm
+  shell: |
+    fvm install stable
+  ignore_errors: "yes"
+  become: "no"

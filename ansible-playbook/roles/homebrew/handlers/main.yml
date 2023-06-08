@@ -1,0 +1,5 @@
+---
+- name: Restart Shell
+  shell: exec /bin/zsh -l
+  args:
+    executable: /bin/zsh

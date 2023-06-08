@@ -1,0 +1,45 @@
+---
+- hosts: localhost
+  gather_facts: "yes"
+  become: "no"
+  roles:
+    - role: install_command_tools
+
+    - role: homebrew
+      vars:
+        homebrew_apps:
+          - name: git
+          - name: mas
+          - name: docker
+          - name: java11
+        homebrew_cask_apps:
+          - name: android-studio
+          - name: android-file-transfer
+          - name: visual-studio-code
+          - name: postman
+          - name: slack
+          - name: keepassxc
+          - name: brave-browser
+          - name: rectangle
+          - name: spotify
+          - name: iina
+          - name: notion
+          - name: warp
+          - name: ivpn
+          - name: monitorcontrol
+          - name: raycast
+          - name: syncthing
+
+    - role: appstore
+      vars:
+        app_ids:
+          - 497799835  # XCode
+          - 1085114709 # Parallels-Desktop
+          - 641027709  # ColorPicker
+      ignore_errors: "yes"
+
+    - role: install_sidekick
+      vars:
+        sidekick_version: 1.1.1
+
+    - role: flutter

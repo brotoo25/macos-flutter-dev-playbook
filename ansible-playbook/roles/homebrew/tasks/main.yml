@@ -1,0 +1,33 @@
+---
+- name: Install Homebrew
+  become: no
+  shell: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    executable: /bin/bash
+    creates: /usr/local/bin/brew
+
+- name: Add Homebrew to PATH
+  become: no
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    line: 'eval "$(/opt/homebrew/bin/brew shellenv)"'
+    insertafter: EOF
+  notify: Restart Shell
+
+- name: Ensure Homebrew is in the current shell session
+  shell: eval "$(/opt/homebrew/bin/brew shellenv)"
+  args:
+    executable: /bin/zsh
+  changed_when: false
+
+- name: Reload the shell
+  shell: exec /bin/zsh -l
+  args:
+    executable: /bin/zsh
+  async: 0
+  poll: 0
+  ignore_errors: true
+
+- name: Update Homebrew
+  become: no
+  shell: brew update
