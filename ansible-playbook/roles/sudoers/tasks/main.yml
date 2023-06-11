@@ -1,0 +1,18 @@
+---
+- name: Get currently logged in user
+  command: whoami
+  register: logged_in_user
+  changed_when: False
+
+- name: Check if user is already in sudoers
+  shell: grep -q "^{{ logged_in_user.stdout }} ALL=(ALL:ALL) NOPASSWD:ALL" /etc/sudoers
+  register: user_in_sudoers
+  failed_when: False
+  changed_when: False
+
+- name: Add user to sudoers if not already present
+  lineinfile:
+    path: /etc/sudoers
+    line: "{{ logged_in_user.stdout }} ALL=(ALL:ALL) NOPASSWD:ALL"
+  when: user_in_sudoers.rc != 0
+  become: yes

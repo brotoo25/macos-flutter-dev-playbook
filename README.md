@@ -14,9 +14,11 @@ chmod +x run.sh
 ```
 
 ## What it currently does:
+[X] - Sudoers
 [X] - Install Apps
+[] - VSCode - Plugins
+[] - Firebase
+[] - Wallpaper
 [] - Dock Icons
 [] - Finder Settings
-[] - OSX Settings
-[] - Sudoers
 [] - Terminal

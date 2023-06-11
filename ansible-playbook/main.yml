@@ -3,6 +3,14 @@
   gather_facts: "yes"
   become: "no"
   roles:
+    ###
+    #  User Privileges
+    ###
+    - role: sudoers
+
+    ###
+    #  Install Apps
+    ###
     - role: install_command_tools
 
     - role: homebrew
@@ -38,8 +46,6 @@
           - 641027709  # ColorPicker
       ignore_errors: "yes"
 
-    - role: install_sidekick
-      vars:
-        sidekick_version: 1.1.1
-
     - role: flutter
+      vars:
+          sidekick_version: 1.1.1
